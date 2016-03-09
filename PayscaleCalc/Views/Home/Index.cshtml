@@ -1,0 +1,17 @@
+﻿@model PayscaleCalc.Models.PayscaleQuoteModel
+
+@{
+    Layout = null;
+}
+
+{
+    "cols": [
+        {"id":"","label":"Range","pattern":"","type":"string"},
+        {"id":"","label":"Salary","pattern":"","type":"number"}
+        ],
+    "rows": [
+        {"c":[{"v":"low","f":null},{"v":@Model.Low,"f":null}]},
+        {"c":[{"v":"typical","f":null},{"v":@Model.Typical,"f":null}]},
+        {"c":[{"v":"high","f":null},{"v":@Model.High,"f":null}]}
+        ]
+}

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://services.payscale.com/compensationSearch/060930" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://services.payscale.com/compensationSearch/060930" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://services.payscale.com/compensationSearch/060930">
+      <s:element name="SuggestJobs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:SuggestJobsRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SuggestJobsRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:JobCompSearchRequest">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="MaxResults" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Location" type="tns:Location" />
+              <s:element minOccurs="1" maxOccurs="1" name="MatchType" type="tns:MatchType" />
+              <s:element minOccurs="1" maxOccurs="1" name="FilterType" type="tns:SuggestJobsFilterType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="JobCompSearchRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CompensationSearchRequest">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Job" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CompensationSearchRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:PayscaleCredentials" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsTest" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CallerCookie" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RelatedResponseID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PayscaleCredentials">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Location">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MatchType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Default" />
+          <s:enumeration value="Broad" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="SuggestJobsFilterType">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="RequireCountryMatch" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SuggestJobsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SuggestJobsResult" type="tns:SuggestJobsResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SuggestJobsResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CompensationSearchResponse">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" name="Jobs" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CompensationSearchResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Error" type="tns:CompensationSearchError" />
+          <s:element minOccurs="0" maxOccurs="1" name="CallerCookie" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ResponseID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CompensationSearchError">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Unexpected" />
+          <s:enumeration value="AccessDenied" />
+          <s:enumeration value="JobNotFound" />
+          <s:enumeration value="JobNotPreciseEnough" />
+          <s:enumeration value="NotEnoughData" />
+          <s:enumeration value="InvalidParameter" />
+          <s:enumeration value="InvalidProfile" />
+          <s:enumeration value="InvalidProfileID" />
+          <s:enumeration value="InvalidJob" />
+          <s:enumeration value="InvalidYearsOnJob" />
+          <s:enumeration value="InvalidLocation" />
+          <s:enumeration value="InvalidCountry" />
+          <s:enumeration value="InvalidState" />
+          <s:enumeration value="InvalidCity" />
+          <s:enumeration value="InvalidCurrency" />
+          <s:enumeration value="InvalidIncome" />
+          <s:enumeration value="InvalidBaseIncome" />
+          <s:enumeration value="InvalidOvertime" />
+          <s:enumeration value="InvalidBonus" />
+          <s:enumeration value="InvalidCommissions" />
+          <s:enumeration value="InvalidExperience" />
+          <s:enumeration value="InvalidDateOfBirth" />
+          <s:enumeration value="InvalidNAICSCode" />
+          <s:enumeration value="InvalidChartType" />
+          <s:enumeration value="JobDescriptionNotFound" />
+          <s:enumeration value="TemplateNotFound" />
+          <s:enumeration value="NoMatchingSkills" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PayScaleQuote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:PayScaleQuoteRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PayScaleQuoteRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CompensationSearchRequest">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Profile" type="tns:UserProfile" />
+              <s:element minOccurs="0" maxOccurs="1" name="UserEnteredJobTitle" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="GenerateChartType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CompensationTypeFilter" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="UserProfile">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Job" type="tns:Job" />
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="tns:Location" />
+          <s:element minOccurs="0" maxOccurs="1" name="Personal" type="tns:PersonalInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Employer" type="tns:Employer" />
+          <s:element minOccurs="0" maxOccurs="1" name="Education" type="tns:Education" />
+          <s:element minOccurs="0" maxOccurs="1" name="Income" type="tns:Income" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Job">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="YearsOnJob" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="YearsExperience" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="JobsToUse" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="YearsExperienceRange" type="tns:YearsExperienceRange" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="YearsExperienceRange">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="LessThanOne" />
+          <s:enumeration value="OneToFour" />
+          <s:enumeration value="FiveToNine" />
+          <s:enumeration value="TenToNineteen" />
+          <s:enumeration value="TwentyOrMore" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PersonalInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DateOfBirth" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Employer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Size" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="YearsWithEmployer" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmployerType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GrossRevenues" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="SICCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NAICSCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductActivity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductActivities" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Education">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="YearsInSchool" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Degrees" type="tns:Degree" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Degree">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="School" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Major" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Year" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Income">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Base" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Overtime" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Bonus" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Commissions" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PayScaleQuoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PayScaleQuoteResult" type="tns:PayScaleQuoteResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PayScaleQuoteResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CompensationSearchResponse">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" name="PayScaleQuotes" type="tns:CompensationData" />
+              <s:element minOccurs="0" maxOccurs="1" name="ChartURL" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LocationType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LocationRegion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LocationMetro" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CompensationData">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Average" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Median" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Percentile25" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Percentile75" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:CompensationType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CompensationType">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Salary" />
+          <s:enumeration value="Hourly" />
+          <s:enumeration value="TotalAnnualCompensation" />
+          <s:enumeration value="Monthly" />
+          <s:enumeration value="AnnualizedBasePay" />
+          <s:enumeration value="TotalCashCompensation" />
+          <s:enumeration value="Bonus" />
+          <s:enumeration value="Commission" />
+          <s:enumeration value="ProfitShare" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SuggestJobsSoapIn">
+    <wsdl:part name="parameters" element="tns:SuggestJobs" />
+  </wsdl:message>
+  <wsdl:message name="SuggestJobsSoapOut">
+    <wsdl:part name="parameters" element="tns:SuggestJobsResponse" />
+  </wsdl:message>
+  <wsdl:message name="PayScaleQuoteSoapIn">
+    <wsdl:part name="parameters" element="tns:PayScaleQuote" />
+  </wsdl:message>
+  <wsdl:message name="PayScaleQuoteSoapOut">
+    <wsdl:part name="parameters" element="tns:PayScaleQuoteResponse" />
+  </wsdl:message>
+  <wsdl:portType name="PayScaleQuoteServiceSoap">
+    <wsdl:operation name="SuggestJobs">
+      <wsdl:input message="tns:SuggestJobsSoapIn" />
+      <wsdl:output message="tns:SuggestJobsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PayScaleQuote">
+      <wsdl:input message="tns:PayScaleQuoteSoapIn" />
+      <wsdl:output message="tns:PayScaleQuoteSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PayScaleQuoteServiceHttpGet" />
+  <wsdl:portType name="PayScaleQuoteServiceHttpPost" />
+  <wsdl:binding name="PayScaleQuoteServiceSoap" type="tns:PayScaleQuoteServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SuggestJobs">
+      <soap:operation soapAction="http://services.payscale.com/compensationSearch/060930/SuggestJobs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PayScaleQuote">
+      <soap:operation soapAction="http://services.payscale.com/compensationSearch/060930/PayScaleQuote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PayScaleQuoteServiceSoap12" type="tns:PayScaleQuoteServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SuggestJobs">
+      <soap12:operation soapAction="http://services.payscale.com/compensationSearch/060930/SuggestJobs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PayScaleQuote">
+      <soap12:operation soapAction="http://services.payscale.com/compensationSearch/060930/PayScaleQuote" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PayScaleQuoteServiceHttpGet" type="tns:PayScaleQuoteServiceHttpGet">
+    <http:binding verb="GET" />
+  </wsdl:binding>
+  <wsdl:binding name="PayScaleQuoteServiceHttpPost" type="tns:PayScaleQuoteServiceHttpPost">
+    <http:binding verb="POST" />
+  </wsdl:binding>
+  <wsdl:service name="PayScaleQuoteService">
+    <wsdl:port name="PayScaleQuoteServiceSoap" binding="tns:PayScaleQuoteServiceSoap">
+      <soap:address location="http://services.payscale.com/quote.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PayScaleQuoteServiceSoap12" binding="tns:PayScaleQuoteServiceSoap12">
+      <soap12:address location="http://services.payscale.com/quote.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PayScaleQuoteServiceHttpGet" binding="tns:PayScaleQuoteServiceHttpGet">
+      <http:address location="http://services.payscale.com/quote.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PayScaleQuoteServiceHttpPost" binding="tns:PayScaleQuoteServiceHttpPost">
+      <http:address location="http://services.payscale.com/quote.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
